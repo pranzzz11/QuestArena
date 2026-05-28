@@ -2,8 +2,9 @@
 // The first screen a user sees. Handles logo animation and initial auth checking.
 //
 // KEY CONCEPTS IN THIS FILE:
-// • flutter_animate: A declarative way to add complex animations with very little code.
-// • ConsumerWidget: A Riverpod widget that allows us to listen to providers.
+// • flutter_animate: Easy modern animations.
+// • ConsumerWidget: Riverpod-enabled widget.
+// • TweenAnimationBuilder: Used for real loading animation.
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -23,7 +24,9 @@ class SplashScreen extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Logo Icon
+            // =========================
+            // LOGO
+            // =========================
             const Icon(
               Icons.shield_rounded,
               size: 100,
@@ -38,7 +41,9 @@ class SplashScreen extends ConsumerWidget {
 
             const SizedBox(height: 24),
 
-            // App Name
+            // =========================
+            // APP TITLE
+            // =========================
             Text(
               'QUEST ARENA',
               style: AppTextStyles.display.copyWith(
@@ -56,7 +61,9 @@ class SplashScreen extends ConsumerWidget {
 
             const SizedBox(height: 8),
 
-            // Subtitle
+            // =========================
+            // SUBTITLE
+            // =========================
             Text(
               'BATTLE OF WITS',
               style: AppTextStyles.label.copyWith(
@@ -68,56 +75,68 @@ class SplashScreen extends ConsumerWidget {
 
             const SizedBox(height: 35),
 
-            // Premium Shiny Loading Bar
-            Container(
-              width: 240,
-              height: 10,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Colors.white10,
+            // =========================
+            // PREMIUM LOADING BAR
+            // =========================
+            TweenAnimationBuilder<double>(
+              tween: Tween(begin: 0, end: 1),
+              duration: const Duration(seconds: 3),
 
-                // Subtle outer border
-                border: Border.all(
-                  color: Colors.white.withOpacity(0.18),
-                  width: 1,
-                ),
-              ),
-              child: Stack(
-                children: [
-                  Container(
-                    width: 180,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
+              builder: (context, value, child) {
+                return Container(
+                  width: 240,
+                  height: 10,
 
-                      // Gold metallic gradient
-                      gradient: const LinearGradient(
-                        colors: [
-                          Color(0xFFFFD700),
-                          Color(0xFFFFF4B0),
-                          Color(0xFFFFD700),
-                        ],
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                      ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.white10,
 
-                      // Tiny glossy edge
-                      border: Border.all(
-                        color: Colors.white24,
-                        width: 0.7,
-                      ),
-
-                      // Glow effect
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Color(0xFFFFD700),
-                          blurRadius: 12,
-                          spreadRadius: 1,
-                        ),
-                      ],
+                    // Outer subtle border
+                    border: Border.all(
+                      color: Colors.white.withOpacity(0.18),
+                      width: 1,
                     ),
                   ),
-                ],
-              ),
+
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+
+                    child: Container(
+                      width: 240 * value,
+
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+
+                        // Metallic gold gradient
+                        gradient: const LinearGradient(
+                          colors: [
+                            Color(0xFFFFD700),
+                            Color(0xFFFFF4B0),
+                            Color(0xFFFFD700),
+                          ],
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                        ),
+
+                        // Tiny glossy white edge
+                        border: Border.all(
+                          color: Colors.white24,
+                          width: 0.7,
+                        ),
+
+                        // Golden glow
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Color(0xFFFFD700),
+                            blurRadius: 12,
+                            spreadRadius: 1,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
             )
                 .animate(
                   onPlay: (controller) => controller.repeat(),
