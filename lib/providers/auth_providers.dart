@@ -19,7 +19,7 @@ final authRepositoryProvider = Provider((ref) {
 // 3. Provide the Auth State (Logged In / Logged Out)
 final authStateProvider = StreamProvider<User?>((ref) async* {
   // Add a 2-second delay so the Splash Screen animations have time to play
-  await Future.delayed(const Duration(seconds: 2));
+  await Future.delayed(const Duration(seconds: 5));
 
   try {
     Firebase.app(); // Check if Firebase is initialized

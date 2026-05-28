@@ -45,19 +45,10 @@ class SplashScreen extends ConsumerWidget {
             // APP TITLE
             // =========================
             Text(
-<<<<<<< HEAD
               'QUEST ARENA',
               style: AppTextStyles.display.copyWith(
                 letterSpacing: 6,
               ),
-=======
-              'QUESTARENA',
-              style: AppTextStyles.display.copyWith(
-                letterSpacing: 2,
-                fontSize: 26,
-              ),
-              textAlign: TextAlign.center,
->>>>>>> upstream/master
             )
                 .animate()
                 .slideY(
